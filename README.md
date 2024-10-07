@@ -1,73 +1,55 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Hackaton Api
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Instalación de dependencias
 
-## Description
+npm install
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Configuración del archivo .env
 
-## Installation
+Crea un archivo .env en la raíz del proyecto con la siguiente configuración:
 
-```bash
-$ npm install
-```
+MONGODB= "uri para conectar a la base de datos"
+DB_NAME= "nombre de la base de datos"
 
-## Running the app
+Para iniciar la aplicación en modo desarrollo:
 
-```bash
-# development
-$ npm run start
+npm run start:dev
 
-# watch mode
-$ npm run start:dev
+Accede a la documentación interactiva de la API utilizando Swagger en el siguiente enlace:
 
-# production mode
-$ npm run start:prod
-```
+http://localhost:3000/docs
 
-## Test
+Entidades:
+Usuario
 
-```bash
-# unit tests
-$ npm run test
+La entidad Usuario contiene las siguientes propiedades:
 
-# e2e tests
-$ npm run test:e2e
+    name: Nombre del usuario.
+    lastname: Apellido del usuario.
+    email: Correo electrónico único.
+    age: Edad del usuario.
+    activity: ID de la actividad a la que está vinculado el usuario.
+    isActive: Indica si el usuario está activo, utilizado para el soft delete.
 
-# test coverage
-$ npm run test:cov
-```
+Reglas del CRUD de Usuarios
 
-## Support
+    Se valida que el correo electrónico no esté duplicado al crear o actualizar un usuario.
+    La actividad vinculada debe tener espacio disponible según su capacidad.
+    Al eliminar un usuario, no se borra físicamente, sino que se establece la propiedad isActive a false (soft delete).
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Actividad
 
-## Stay in touch
+La entidad Actividad contiene las siguientes propiedades:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+    name: Nombre de la actividad.
+    description: Descripción de la actividad.
+    capacity: Capacidad máxima de participantes.
 
-## License
+Funcionalidades adicionales:
+Importar actividades desde un archivo JSON
 
-Nest is [MIT licensed](LICENSE).
+Para importar actividades, debes crear un archivo .json dentro de la carpeta src/file y pasar el nombre del archivo (sin la extensión .json) al método de importación en el módulo correspondiente.
+
+Exportar actividades
+Para exportar todas las actividades en formato JSON, utiliza el método de exportación disponible en Swagger. Una vez ejecutado el método, tendrás la opción de descargar el archivo generado.
